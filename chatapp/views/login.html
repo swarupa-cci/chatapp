@@ -1,0 +1,27 @@
+<html>
+    <title>Login</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+        $('form').submit(function(){
+          socket.emit('connectUser', $('#username').val());
+          $('#username').val('');
+          return false;
+        });
+        socket.on('user', function(user){
+
+            window.location = "/list"
+           
+        });
+    
+       
+      });
+    </script>
+    <body>
+        <form action="">
+            <input id="username" autocomplete="off" /><button>Send</button>
+          </form> 
+    </body>
+</html>
