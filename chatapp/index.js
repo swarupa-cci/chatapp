@@ -27,11 +27,11 @@ io.on('connection', function(socket){
         var message = {}
         message["message"] = msg;
         message["userId"] = socket.id
-      //   sqlHelper.insertMessage(message, function(err,result){
-      //     io.emit('add message', msg);
+        sqlHelper.insertMessage(message, function(err,result){
+          io.emit('add message', msg);
      
-      //  });
-      io.emit('add message', msg);
+       });
+      
        
       });   
 
@@ -107,7 +107,7 @@ io.on('connection', function(socket){
   });
 
 app.get('/', function(req, res){
-    res.sendFile(__dirname +'/views' + '/login.html');
+    res.sendFile(__dirname +'/views' + '/index.html');
 });
 
 app.get('/list',function(req,res){

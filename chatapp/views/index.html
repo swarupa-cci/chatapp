@@ -18,12 +18,35 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
   $(function () {
-    var socket = io();
-    $('form').submit(function(){
-      socket.emit('chat message', $('#m').val());
-      $('#m').val('');
-      return false;
+    var socket  = io();
+
+    $('#login').click(function(){
+      alert('user insert')
+      socket.emit('connectUser', $('#username').val());
+      $('#username').val('');
+      
     });
+     
+        socket.on('user', function(user){
+
+           alert('user added')
+           
+        });
+
+        $('#send').click(function(){
+          alert('send message')
+          socket.emit('chat message', $('#m').val());
+          $('#m').val('');
+      
+    });
+     
+       
+
+    // $('form').submit(function(){
+    //   socket.emit('chat message', $('#m').val());
+    //   $('#m').val('');
+    //   return false;
+    // });
     socket.on('add message', function(msg){
       $('#messages').append($('<li>').text(msg));
     });
@@ -35,10 +58,17 @@
 </script>
       
   <body>
+      
+
     <h3 id="clientValue">Test</h3>
     <ul id="messages"></ul>
-   <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
+   <form action="" ></form>
+        <input id="m" autocomplete="off" />
+        <button id="send">Send</button>
+        <h1>Please Login</h1>
+        <input id="username" autocomplete="off" />
+        <button id="login">login</button>
     </form> 
+   
   </body>
 </html>
