@@ -21,14 +21,19 @@ io.on('connection', function(socket){
         io.sockets.emit('broadcast',{ description: clients - ' clients connected!'});
       });
 
-      socket.on('chat message', function(msg){
+      socket.on('chat message', function(msg,type){
         console.log('message: ' + msg);
         console.log(socket.id)
         var message = {}
         message["message"] = msg;
         message["userId"] = socket.id
         sqlHelper.insertMessage(message, function(err,result){
-          io.emit('add message', msg);
+          if(type == 1){
+            io.emit('add message', msg);
+          }
+          else{
+            io.emit('add message', message);
+          }
      
        });
       
@@ -134,6 +139,7 @@ function getAllMessages(){
   sqlHelper.getAllMessages(function(err,result){
     if(!err){
       messageList = result;
+     
     }
 
 });

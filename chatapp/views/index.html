@@ -35,7 +35,7 @@
 
         $('#send').click(function(){
           alert('send message')
-          socket.emit('chat message', $('#m').val());
+          socket.emit('chat message', $('#m').val(),1);
           $('#m').val('');
       
     });
